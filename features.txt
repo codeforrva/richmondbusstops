@@ -1,0 +1,10 @@
+Features for the busstop app
+
+Feature list -- 
+
+Ask for house address and the school. We will check the general time (am or pm) and find the nearest bus stops. This will find the nearest bus stop, and bring up where the bus is now based on the route times.
+
+We are going to use a small sample of the data for the prototype.
+
+The school will be a dropdown.
+

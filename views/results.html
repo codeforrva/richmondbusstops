@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<link rel="stylesheet" href="/packages/bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="/site.css" />
+		<script src="/packages/jquery/dist/jquery.js"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHnH43FLd9Z25-GN9Uhe16EsTj9LToNms&sensor=false"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/v3_epoly.js"></script>
+	</head>
+	<body>
+		<nav class="menu">
+			<a href="/">Search Again</a>
+		</nav>
+		<div id="map"></div>
+		<div id="routeInfo" class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<p><strong>The Nearest Bus stop</strong></p>
+					<p><%-nearestBusStopAddress %></p>
+				</div>
+			</div>
+		</div>
+		<script>
+
+		function initialize() {
+	        var mapOptions = {
+	          center: new google.maps.LatLng(<%-myBusStop[0]%>, <%-myBusStop[1]%>),
+	          zoom: 17
+	        };
+
+	        var map = new google.maps.Map(document.getElementById("map"),
+	            mapOptions);
+
+	        var nearest_bus_stop = new google.maps.Marker({position:mapOptions.center, title: 'Nearest Bus Stop',
+	    	    icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+	    	        });
+	        nearest_bus_stop.setMap(map);
+
+	        
+	        var my_location = new google.maps.Marker({
+	        	position: new google.maps.LatLng(<%-myLocation[0]%>,<%-myLocation[1]%>),
+	        	title: 'Your Location',
+	        	icon: ' http://maps.google.com/mapfiles/arrow.png'
+	        });
+	        my_location.setMap(map);
+	        var m = [];
+	        <% for(var i = 0; i < routes_coordinates.length; i++){ %>
+
+	        	
+	        		m[<%-i%>] = new google.maps.Marker({
+	        			position: new google.maps.LatLng(<%-routes_coordinates[i].loc[0]%>, <%-routes_coordinates[i].loc[1]%>),
+	        			<% if( i === routes_coordinates.length - 1){%>
+	        				icon: "/school2.png",
+	        			<%}%>
+	        			<% if(i === 0){%>
+	        				icon: "http://maps.google.com/mapfiles/dd-start.png",
+	        			<%}%>
+	        			map: map
+	        		});
+	        		
+	        	<%}%>
+
+	        //get the times from the stops
+	        var rt_percentages_by_marker = [];
+	        	<% var b = new Date(); 
+	        	   var rt_percentages_by_marker = [];
+	        	    var time_parts = routes_coordinates[0].time.split(":"); 
+	        	    b.setHours(time_parts[0]); 
+	        	    b.setMinutes(time_parts[1]); 
+	        	    var c = new Date();
+	        	    var end_time_parts = routes_coordinates[routes_coordinates.length - 1].time.split(":");
+	        	    c.setHours(end_time_parts[0]);
+	        	    c.setMinutes(end_time_parts[1]);
+	        	    var rt_total_time = c.getTime() - b.getTime();
+	        	    for(var i = 0; i < routes_coordinates.length; i++){
+	        	    	var rt_time = new Date();
+	        	    	var temp_time_split = routes_coordinates[i].time.split(":");
+	        	    	rt_time.setHours(temp_time_split[0]);
+	        	    	rt_time.setMinutes(temp_time_split[1]);
+	        	    	console.log('this is the route minus time: ');
+	        	    	console.log(rt_total_time);
+	        	    	var time_to_insert = (rt_time.getTime() - b.getTime()) / rt_total_time * 100;%>
+	        	    rt_percentages_by_marker.push(<%-time_to_insert%>);
+	        	    <%}%>
+	        	var route_start_time = <%-b.getTime()%>
+	        	var total_route_time = <%-c.getTime() - b.getTime()%>;
+	        	console.log(rt_percentages_by_marker);
+
+	        //setup the waypoints,
+	        var waypoints = [
+	        	<% for(var i = 1; i < routes_coordinates.length - 1; i++){ %>
+	        		<% if(routes_coordinates[i].type !== 'DEST' || routes_coordinates[i].type !== 'END'){ %>
+	        		{ location: new google.maps.LatLng(<%-routes_coordinates[i].loc[0]%>, <%-routes_coordinates[i].loc[1]%>) }
+	        		<%}%>
+	        		<% if(i !== routes_coordinates.length - 1){ %>,<%}%>
+	        	<%} %>
+	        ];
+
+
+	        var service = new google.maps.DirectionsService();
+	        var route_display = new google.maps.DirectionsRenderer({
+	        	suppressMarkers: true
+	        });
+	        route_display.setMap(map);
+	        var directionResult;
+	        var serviceRequest = {
+	        	origin: new google.maps.LatLng(<%-routes_coordinates[0].loc[0]%>, <%-routes_coordinates[0].loc[1]%>),
+	        	destination: new google.maps.LatLng(<%-routes_coordinates[ routes_coordinates.length - 1].loc[0]%>, <%-routes_coordinates[routes_coordinates.length - 1].loc[1]%>),
+	        	waypoints: waypoints,
+	        	optimizeWaypoints: false,
+	        	travelMode: google.maps.TravelMode.DRIVING
+	        };
+
+	       service.route(serviceRequest,function(result, status) {                
+	            if(status == google.maps.DirectionsStatus.OK) {                 
+	                  route_display.setDirections(result);
+	                  console.log(result);
+	                  directionResult = result;
+	                  setupSchoolBus(result, rt_percentages_by_marker);
+	            } else {
+	            	 alert("Directions request failed:" +status); 
+	            }
+        	});
+
+	       var busMarker;
+	       var timeCheck;
+
+	       function setupSchoolBus(result){
+	       		var rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
+	       		console.log(total_route_time);
+	       		if(rt_per < 100 && rt_per >= 0){
+		       		moveBus(rt_per, result, rt_percentages_by_marker);
+	       		}
+
+	       		if(rt_per < 0){
+	       			busMarker = new google.maps.Marker({
+	       				position: serviceRequest.origin,
+	       				map:map,
+	       				icon: "/bus.png"
+	       			});
+
+	       			timeCheck = setInterval(function(){
+	       				if(route_start_time <= new Date().getTime()){
+	       					console.log('start');
+	       					rt_per = (new Date().getTime() - route_start_time) / 
+	       						total_route_time * 100;
+	       					busMarker.setMap(null);
+	       					clearInterval(timeCheck);
+	       					moveBus(rt_per, directionResult, rt_percentages_by_marker );
+	       				}
+	       			}, 3000);
+	       		}
+	       }
+
+	       
+
+	       function moveBus(rt_per, result, rt_percentages_by_marker){
+	       	var rt_path  = new google.maps.Polyline({path:result.routes[0].overview_path});
+		    var stepPloyline = new Array();
+		       		var rt_path_dst = rt_path.Distance();
+		       		var buspos = rt_path.GetPointAtDistance(rt_path_dst *(rt_per)/100);
+
+		       		busMarker = new google.maps.Marker({
+		       			position:buspos,
+		       			icon: "/bus.png",
+		       			map: map
+		       		});
+
+		       				//set markers we have passed to no visibilty 
+		       		for(var i = 0; i < rt_percentages_by_marker.length; i++){
+		       			console.log("rt_per is " + rt_per);
+		       			if(rt_per > rt_percentages_by_marker[i]){
+		       				console.log(m[i]);
+		       				m[i].setVisible(false);
+		       			}
+		       		}
+
+		       		
+		       		var aniInterval = setInterval(function(){
+	       				rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
+	       				if(rt_per >= 100)
+	       					stopAnimation();
+	       				buspos = rt_path.GetPointAtDistance(rt_path_dst *(rt_per)/100);
+	       				busMarker.setPosition(buspos);
+	       				//set markers we have passed to no visibilty 
+		       		for(var i = 0; i < rt_percentages_by_marker.length; i++){
+		       			console.log("rt_per is " + rt_per);
+		       			if(rt_per > rt_percentages_by_marker[i]){
+		       				console.log(m[i]);
+		       				m[i].setVisible(false);
+		       			}
+		       		}
+
+		       		
+	       			}, 2000);
+
+		       		function stopAnimation(){
+		       			clearInterval(aniInterval);
+		       		}
+
+
+
+	       }
+
+      	}
+
+
+      	google.maps.event.addDomListener(window, 'load', initialize);
+		</script>
+	</body>
+</html>

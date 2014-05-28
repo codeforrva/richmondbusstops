@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<link rel="stylesheet" href="/packages/bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="/site.css" />
+		<script src="/packages/jquery/dist/jquery.js"></script>
+	</head>
+	<body>
+		<div class="splash"></div>
+		<div id="busForm" class="container-fluid">
+			<div class="row">
+				<div class="col-md-12"><h1>Richmond Bus Stops</h1></div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<form action="/find_address" class="form" role="form" method="POST">
+						<div class="form-group">
+							<label>Address:</label>
+							<input type="text" name="address" placeholder="Enter your address to find a bus stop near you" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label>School:</label>
+							<select class="form-control" name="school">
+								<option value="">--Select Your Child's School--</option>
+								<option value="BINFORD MIDDLE">Binford Middle School</option>
+								<option value="CARY ELEMENTARY">Cary Elementary School</option>
+								<option value="TEST">Test School</option>
+							</select>
+							
+						</div>
+						<input type="submit" class="btn btn-primary" value="Find Nearest Bus Stop" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

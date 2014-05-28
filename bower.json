@@ -1,0 +1,8 @@
+{
+	"name": "busstops",
+	"private":true,
+	"dependencies":{
+		"bootstrap":"*",
+		"jquery":"*"
+	}
+}
