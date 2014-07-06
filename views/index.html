@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		
 		<link rel="stylesheet" href="/packages/bootstrap/dist/css/bootstrap.css" />
 		<link rel="stylesheet" href="/site.css" />
 		<script src="/packages/jquery/dist/jquery.js"></script>
+		<!--[if lt IE 9]>
+		<script src="dist/html5shiv.js"></script>
+		<![endif]-->
 	</head>
 	<body>
+		<main></main>
 		<div class="splash"></div>
 		<div id="busForm" class="container-fluid">
 			<div class="row">
@@ -27,7 +30,6 @@
 								<option value="CARY ELEMENTARY">Cary Elementary School</option>
 								<option value="TEST">Test School</option>
 							</select>
-							
 						</div>
 						<input type="submit" class="btn btn-primary" value="Find Nearest Bus Stop" />
 					</form>

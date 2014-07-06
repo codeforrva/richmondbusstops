@@ -14,11 +14,11 @@ file_put_contents('routes.json', json_encode($contents));
 ?>
 
 "time": "14:00",
-    "type": "STOP",
-    "address": "Test Stop",
-    "loc": [
-        -77.517848,
-        37.511092
-    ],
-    "school": "TEST",
-    "route_num": "111TTP01"
+"type": "STOP",
+"address": "Test Stop",
+"loc": [
+    -77.517848,
+    37.511092
+],
+"school": "TEST",
+"route_num": "111TTP01"
