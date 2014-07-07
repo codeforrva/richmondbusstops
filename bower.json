@@ -2,7 +2,9 @@
 	"name": "busstops",
 	"private":true,
 	"dependencies":{
-		"bootstrap":"*",
+    "normalize-css": "*",
+    "bourbon": "*",
+    "neat": "*",
 		"jquery":"*"
 	}
 }

@@ -1,0 +1,101 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "http://fonts.googleapis.com/css?family=Open+Sans:400,600,700";
+@import "http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700";
+
+$background-color: #c93900;
+
+.lb_wrap .lb_label.top, .lb_wrap .lb_label.bottom {
+  width: 150px;
+  left: 0;
+}
+
+.lb_wrap .lb_label.left {
+  left: 0;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+body, input {
+  background: $background-color;
+  // font: 300 18px/24px "open sans";
+  font: 300 24px/24px "pt sans narrow";
+  letter-spacing: 1px;
+}
+
+main {
+  width: 40%;
+  margin: 0 auto;
+}
+
+form {
+  padding: 3rem;
+  margin-top: 50%;
+}
+
+form input, form select, form label, .lb_label {
+  display: block;
+  width: 100%;
+  font-size: 0.95rem;
+  color: #fefefe;
+  text-transform: uppercase;
+}
+
+form input {
+  background: $background-color;
+  box-shadow: none;
+  border-radius: 0;
+  border: #fefefe solid 1px;
+  padding: 1rem;
+  cursor: pointer;
+
+  -webkit-transition: all 0.20s ease-in-out;
+  -moz-transition: all 0.20s ease-in-out;
+  -ms-transition: all 0.20s ease-in-out;
+  -o-transition: all 0.20s ease-in-out;
+  outline: none;
+
+  border: 1px solid #DDDDDD;
+
+  &:focus {
+    border-color: $background-color;
+    border-bottom: 1px solid #fefefe;
+    padding-left: 0;
+  }
+}
+
+form li {
+  margin: 0 0 3rem;
+
+  &:last-child {
+    margin: 0;
+  }
+}
+
+::-webkit-input-placeholder {
+   color: #fefefe;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  color: #fefefe;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  color: #fefefe;
+}
+
+:-ms-input-placeholder {
+  color: #fefefe;
+}
+
+.label_better + .lb_label {
+
+}
