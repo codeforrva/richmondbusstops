@@ -3,11 +3,15 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
-@import "compass/reset";
+$background-color: #35578b;
+$highlight-color: #358b64;
+$mark-color: #c83900;
+
+@import "compass/reset", "chosen";
 @import "http://fonts.googleapis.com/css?family=Open+Sans:400,600,700";
 @import "http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700";
 
-$background-color: #c93900;
+
 
 .lb_wrap .lb_label.top, .lb_wrap .lb_label.bottom {
   width: 150px;
@@ -24,21 +28,55 @@ $background-color: #c93900;
   -moz-box-sizing: border-box;
 }
 
-body, input {
-  background: $background-color;
+body {
+  background:$background-color;
+  background-size: cover;
+  text-transform: uppercase;
+}
+
+body, input, select {
   // font: 300 18px/24px "open sans";
-  font: 300 24px/24px "pt sans narrow";
+  font: 300 18px/1.618 "pt sans narrow";
   letter-spacing: 1px;
+}
+
+a, a:visited, a:active {
+  color: #fefefe;
+  text-decoration: none;
+  font-size: 0.95rem;
 }
 
 main {
   width: 40%;
+  min-width: 360px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
+footer {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 2rem;
+}
+
+footer a {
+
+}
+
+footer a em {
+  color: $mark-color;
+}
+
 form {
-  padding: 3rem;
   margin-top: 50%;
+}
+
+form fieldset {
+  border: #fefefe solid 1px;
+  padding: 3rem;
+  margin: 0 0 3rem;
 }
 
 form input, form select, form label, .lb_label {
@@ -73,10 +111,24 @@ form input {
 }
 
 form li {
-  margin: 0 0 3rem;
+  margin: 0 0 1.5rem;
 
   &:last-child {
     margin: 0;
+  }
+}
+
+input[type=submit] {
+  border-radius: 100px;
+  text-shadow: 0 1px 0 darken($background-color, 7%);
+  font-size: 1rem;
+
+  max-width: 300px;
+  margin: 0 auto;
+
+  &:hover {
+    border-color: #a6ffbb;
+    color: #a6ffbb;
   }
 }
 

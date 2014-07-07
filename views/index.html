@@ -10,26 +10,30 @@
 	<body>
 		<main>
 			<form action="/find_address" class="form" role="form" method="POST">
-				<ol>
-					<li>
-						<!-- <label for="address" class="fly-label from-right">Your address</label> -->
-						<input type="text" name="address" placeholder="Your address" class="form-control label_better">
-					</li>
-					<li>
-						<label>School:</label>
-						<select data-live-search="true" class="form-control selectpicker" name="school">
-							<option value="">--Select Your Child's School--</option>
-							<option value="BINFORD MIDDLE">Binford Middle School</option>
-							<option value="CARY ELEMENTARY">Cary Elementary School</option>
-							<option value="TEST">Test School</option>
-						</select>
-					</li>
-					<li><input type="submit" class="btn btn-primary" value="Find Nearest Bus Stop"></li>
-				</ol>
+				<fieldset>
+					<ol>
+						<li>
+							<!-- <label for="address" class="fly-label from-right">Your address</label> -->
+							<input type="text" name="address" placeholder="Your address" class="form-control label_better">
+						</li>
+						<li>
+							<select data-placeholder="poop" class="chosen-select-width" class="form-control" name="school">
+								<option selected="selected" disabled="disabled">Choose your school</option>
+								<option value="BINFORD MIDDLE">Binford Middle School</option>
+								<option value="CARY ELEMENTARY">Cary Elementary School</option>
+								<option value="TEST">Test School</option>
+							</select>
+						</li>
+					</ol>
+				</fieldset>
+				<input type="submit" class="btn btn-primary" value="Find Nearest Bus Stop">
 			</form>
 		</main>
+		<footer>
+			<a href="http://codeforrva.org" title="Built with <3 by Code for RVA">Built with <em>&#9829</em> by Code for RVA</a>
+		</footer>
 		<script src="/packages/jquery/dist/jquery.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.3.5/bootstrap-select.min.js"></script>
+		<script src="scripts/chosen.js"></script>
 		<script src="scripts/label-better.js"></script>
 		<script>
 			$(function() {
@@ -40,6 +44,20 @@
 					offset: 59, // You can add more spacing between the input and the label. This option accepts value in pixels (without the unit). The default value is 20.
 					hidePlaceholderOnFocus: true // The default placeholder text will hide on focus
 				});
+
+				var selector = 'select';
+
+				var config = {
+					'.chosen-select'           : {},
+					'.chosen-select-deselect'  : {allow_single_deselect:true},
+					'.chosen-select-no-single' : {disable_search_threshold:10},
+					'.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+					'.chosen-select-width'     : {width:"95%"}
+				};
+
+				for (var selector in config) {
+					$(selector).chosen(config[selector]);
+				}
 			});
 		</script>
 	</body>
