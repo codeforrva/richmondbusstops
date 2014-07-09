@@ -3,6 +3,8 @@
 		"express": "3.*",
 		"socket.io": "*",
 		"mongodb": "*",
-		"mquery":"*"
+		"mquery":"*",
+		"rsvp":"*",
+		"ejs":"*"
 	}
 }
