@@ -6,7 +6,6 @@
 		<link rel="stylesheet" href="/site.css" />
 		<script src="/packages/jquery/dist/jquery.js"></script>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHnH43FLd9Z25-GN9Uhe16EsTj9LToNms&sensor=false"></script>
-		<script src="/socket.io/socket.io.js"></script>
 		<script src="/v3_epoly.js"></script>
 	</head>
 	<body>
@@ -48,18 +47,18 @@
 	        var m = [];
 	        <% for(var i = 0; i < routes_coordinates.length; i++){ %>
 
-	        	
-	        		m[<%-i%>] = new google.maps.Marker({
-	        			position: new google.maps.LatLng(<%-routes_coordinates[i].loc[0]%>, <%-routes_coordinates[i].loc[1]%>),
-	        			<% if( i === routes_coordinates.length - 1){%>
-	        				icon: "/school2.png",
-	        			<%}%>
-	        			<% if(i === 0){%>
-	        				icon: "http://maps.google.com/mapfiles/dd-start.png",
-	        			<%}%>
-	        			map: map
-	        		});
-	        		
+	        	<% if(routes_coordinates[i].loc[0] !== myBusStop[0] && routes_coordinates[i].loc[1] !== myBusStop[1]){ %>
+		        		m[<%-i%>] = new google.maps.Marker({
+		        			position: new google.maps.LatLng(<%-routes_coordinates[i].loc[0]%>, <%-routes_coordinates[i].loc[1]%>),
+		        			<% if( i === routes_coordinates.length - 1){%>
+		        				icon: "/school2.png",
+		        			<%}%>
+		        			<% if(i === 0){%>
+		        				icon: "http://maps.google.com/mapfiles/dd-start.png",
+		        			<%}%>
+		        			map: map
+		        		});
+	        		<% } %>	
 	        	<%}%>
 
 	        //get the times from the stops
@@ -168,15 +167,7 @@
 		       			map: map
 		       		});
 
-		       				//set markers we have passed to no visibilty 
-		       		for(var i = 0; i < rt_percentages_by_marker.length; i++){
-		       			console.log("rt_per is " + rt_per);
-		       			if(rt_per > rt_percentages_by_marker[i]){
-		       				console.log(m[i]);
-		       				m[i].setVisible(false);
-		       			}
-		       		}
-
+		       		
 		       		
 		       		var aniInterval = setInterval(function(){
 	       				rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
@@ -184,14 +175,7 @@
 	       					stopAnimation();
 	       				buspos = rt_path.GetPointAtDistance(rt_path_dst *(rt_per)/100);
 	       				busMarker.setPosition(buspos);
-	       				//set markers we have passed to no visibilty 
-		       		for(var i = 0; i < rt_percentages_by_marker.length; i++){
-		       			console.log("rt_per is " + rt_per);
-		       			if(rt_per > rt_percentages_by_marker[i]){
-		       				console.log(m[i]);
-		       				m[i].setVisible(false);
-		       			}
-		       		}
+	       			
 
 		       		
 	       			}, 2000);
