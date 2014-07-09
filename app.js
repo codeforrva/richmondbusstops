@@ -34,7 +34,7 @@ app.post('/login', function(req, res){
 });*/
 
 app.get('/', function(req, res){
-	res.render('no_results.html');
+	res.render('index.html');
 });
 
 
