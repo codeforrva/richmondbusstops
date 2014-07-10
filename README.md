@@ -1,6 +1,7 @@
 richmondbusstops
 ================
 
-richmond bus stops FTW
+![](mockups/estimation-begin.png)
+![](mockups/estimation.png)
 
-updated july 8th 9:37pm
+updated July 10th 9:30am
