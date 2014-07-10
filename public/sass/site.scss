@@ -3,6 +3,9 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
+// Arrow by Molly Bramlet from The Noun Project
+// Search by Alex S. Lakas from The Noun Project
+
 $background-color: #35578b;
 $highlight-color: #358b64;
 $mark-color: #c83900;
@@ -11,6 +14,12 @@ $mark-color: #c83900;
 @import "http://fonts.googleapis.com/css?family=Open+Sans:400,600,700";
 @import "http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700";
 
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background: $background-color !important;
+  color: #fefefe !important;
+  box-shadow: 0 0 0px 1000px $background-color inset;
+  -webkit-text-fill-color: #fefefe !important;
+}
 
 
 .lb_wrap .lb_label.top, .lb_wrap .lb_label.bottom {
@@ -26,6 +35,12 @@ $mark-color: #c83900;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+}
+
+img.logo {
+  display: block;
+  width: 200px;
+  margin: 0 auto 2rem;
 }
 
 body {
@@ -58,11 +73,13 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  padding: 2rem;
+  height: 82px;
 }
 
 footer a {
-
+  display: inline-block;
+  padding: 2rem;
+  background: darken($background-color, 3%);
 }
 
 footer a em {
@@ -122,6 +139,7 @@ input[type=submit] {
   border-radius: 100px;
   text-shadow: 0 1px 0 darken($background-color, 7%);
   font-size: 1rem;
+  display: none;
 
   max-width: 300px;
   margin: 0 auto;
