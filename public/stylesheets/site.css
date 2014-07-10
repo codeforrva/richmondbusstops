@@ -726,7 +726,7 @@ input[type=submit] {
   border-radius: 100px;
   text-shadow: 0 1px 0 #2b4771;
   font-size: 1rem;
-  display: none;
+  
   max-width: 300px;
   margin: 0 auto;
 }
