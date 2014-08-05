@@ -167,7 +167,7 @@
 
 	       
 
-	       function moveBus(rt_per, result, rt_count){
+	       function moveBus(rt_per, result){
 	       			var rt_path  = new google.maps.Polyline({path:result.routes[0].overview_path});
 		    		var stepPloyline = new Array();
 		       		var rt_path_dst = rt_path.Distance();
@@ -183,7 +183,7 @@
 		       		
 		       		var aniInterval = setInterval(function(){
 	       				//rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
-	       				rt_count = rt_count * 500;
+	       				rt_count += 500;
 	       				rt_per = rt_count /total_route_time * 100;
 	       				console.log(rt_per);
 	       				if(rt_per >= 100)
