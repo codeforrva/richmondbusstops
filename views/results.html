@@ -134,6 +134,7 @@
 	       function setupSchoolBus(result){
 	       		//var rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
 	       		var rt_per = 0;
+	       		var rt_count = 0;
 	       		console.log(total_route_time);
 	       		if(rt_per < 100 && rt_per >= 0){
 		       		moveBus(rt_per, result);
@@ -183,7 +184,8 @@
 		       		
 		       		var aniInterval = setInterval(function(){
 	       				//rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
-	       				rt_per = (new Date().getSeconds() * 500) /total_route_time * 100;
+	       				rt_count = rt_count * 500;
+	       				rt_per = rt_count /total_route_time * 100;
 	       				console.log(rt_per);
 	       				if(rt_per >= 100)
 	       					stopAnimation();
