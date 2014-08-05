@@ -56,9 +56,10 @@
 								icon: "/school.png",
 							<% } %>	
 		        			<% if(i === 0 && todayHours.getHours() > 14 ){%>
-		        				icon: "http://maps.google.com/mapfiles/dd-start.png",
-		        			<%}else if(i === 0 && todayHours.getHours() < 14){ %>
 		        				icon: "/school.png",
+		        			<%}else if(i === 0 && todayHours.getHours() < 14){ %>
+		        				
+		        				icon: "http://maps.google.com/mapfiles/dd-start.png",
 		        				<%} %>
 		        			map: map
 		        		});
