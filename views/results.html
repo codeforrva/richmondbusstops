@@ -137,7 +137,7 @@
 	       		var rt_count = 0;
 	       		console.log(total_route_time);
 	       		if(rt_per < 100 && rt_per >= 0){
-		       		moveBus(rt_per, result);
+		       		moveBus(rt_per, result, rt_count);
 	       		}
 
 	       		/*busMarker = new google.maps.Marker({
@@ -168,7 +168,7 @@
 
 	       
 
-	       function moveBus(rt_per, result){
+	       function moveBus(rt_per, result, rt_count){
 	       			var rt_path  = new google.maps.Polyline({path:result.routes[0].overview_path});
 		    		var stepPloyline = new Array();
 		       		var rt_path_dst = rt_path.Distance();
