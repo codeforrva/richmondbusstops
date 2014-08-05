@@ -183,7 +183,7 @@
 		       		
 		       		var aniInterval = setInterval(function(){
 	       				//rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
-	       				rt_per = 200 /total_route_time * 100;
+	       				rt_per = 5 /total_route_time * 100;
 	       				if(rt_per >= 100)
 	       					stopAnimation();
 	       				buspos = rt_path.GetPointAtDistance(rt_path_dst *(rt_per)/100);
