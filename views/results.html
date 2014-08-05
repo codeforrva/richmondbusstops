@@ -134,10 +134,9 @@
 	       function setupSchoolBus(result){
 	       		//var rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
 	       		var rt_per = 0;
-	       		var rt_count = 0;
 	       		console.log(total_route_time);
 	       		if(rt_per < 100 && rt_per >= 0){
-		       		moveBus(rt_per, result, rt_count);
+		       		moveBus(rt_per, result);
 	       		}
 
 	       		/*busMarker = new google.maps.Marker({
@@ -173,7 +172,7 @@
 		    		var stepPloyline = new Array();
 		       		var rt_path_dst = rt_path.Distance();
 		       		var buspos = rt_path.GetPointAtDistance(rt_path_dst *(rt_per)/100);
-
+		       		var rt_count = 0;
 		       		busMarker = new google.maps.Marker({
 		       			position:buspos,
 		       			icon: "/bus.png",
