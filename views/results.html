@@ -55,9 +55,9 @@
 		        			<%}else if(i === routes_coordinates.length -1 && todayHours.getHours() < 14){%>
 								icon: "/school.png",
 							<% } %>	
-		        			<% if(i === 0 && todayHours.getHours().getHours() > 14 ){%>
+		        			<% if(i === 0 && todayHours.getHours() > 14 ){%>
 		        				icon: "http://maps.google.com/mapfiles/dd-start.png",
-		        			<%}else if(i === 0 && todayHours.getHours().getHours() < 14){ %>
+		        			<%}else if(i === 0 && todayHours.getHours() < 14){ %>
 		        				icon: "/school.png",
 		        				<%} %>
 		        			map: map
