@@ -51,7 +51,7 @@
 		        			position: new google.maps.LatLng(<%-routes_coordinates[i].loc[0]%>, <%-routes_coordinates[i].loc[1]%>),
 		        			<% if( i === routes_coordinates.length - 1 && new Date().getHours() > 14){%>
 		        				icon: "http://maps.google.com/mapfiles/dd-end.png",
-		        			<%}else if(i === routes.routes_coordinates.length -1 && new Date.().getHours() < 14){%>
+		        			<%}else if(i === routes_coordinates.length -1 && new Date.().getHours() < 14){%>
 								icon: "/school.png",
 							<% } %>	
 		        			<% if(i === 0 && new Date().getHours() > 14 ){%>
