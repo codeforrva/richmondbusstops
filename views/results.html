@@ -122,7 +122,7 @@
 	                  route_display.setDirections(result);
 	                  console.log(result);
 	                  directionResult = result;
-	                  setupSchoolBus(result, rt_percentages_by_marker);
+	                  setupSchoolBus(result);
 	            } else {
 	            	 alert("Directions request failed:" +status); 
 	            }
@@ -132,13 +132,20 @@
 	       var timeCheck;
 
 	       function setupSchoolBus(result){
-	       		var rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
+	       		//var rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
+	       		var rt_per = 0;
 	       		console.log(total_route_time);
 	       		if(rt_per < 100 && rt_per >= 0){
-		       		moveBus(rt_per, result, rt_percentages_by_marker);
+		       		moveBus(rt_per, result);
 	       		}
 
-	       		if(rt_per < 0){
+	       		/*busMarker = new google.maps.Marker({
+	       				position: serviceRequest.origin,
+	       				map:map,
+	       				icon: "/bus.png"
+	       		});*/
+
+	       		/*if(rt_per >= 0){
 	       			busMarker = new google.maps.Marker({
 	       				position: serviceRequest.origin,
 	       				map:map,
@@ -155,14 +162,14 @@
 	       					moveBus(rt_per, directionResult, rt_percentages_by_marker );
 	       				}
 	       			}, 3000);
-	       		}
+	       		}*/
 	       }
 
 	       
 
-	       function moveBus(rt_per, result, rt_percentages_by_marker){
-	       	var rt_path  = new google.maps.Polyline({path:result.routes[0].overview_path});
-		    var stepPloyline = new Array();
+	       function moveBus(rt_per, result){
+	       			var rt_path  = new google.maps.Polyline({path:result.routes[0].overview_path});
+		    		var stepPloyline = new Array();
 		       		var rt_path_dst = rt_path.Distance();
 		       		var buspos = rt_path.GetPointAtDistance(rt_path_dst *(rt_per)/100);
 
@@ -175,7 +182,8 @@
 		       		
 		       		
 		       		var aniInterval = setInterval(function(){
-	       				rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
+	       				//rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
+	       				rt_per = 200 /total_route_time * 100;
 	       				if(rt_per >= 100)
 	       					stopAnimation();
 	       				buspos = rt_path.GetPointAtDistance(rt_path_dst *(rt_per)/100);
