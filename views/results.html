@@ -183,7 +183,7 @@
 		       		
 		       		var aniInterval = setInterval(function(){
 	       				//rt_per = (new Date().getTime() - route_start_time) / total_route_time * 100;
-	       				rt_per = new Date().getSeconds() * 5 /total_route_time * 100;
+	       				rt_per = (new Date().getSeconds() * 500) /total_route_time * 100;
 	       				console.log(rt_per);
 	       				if(rt_per >= 100)
 	       					stopAnimation();
