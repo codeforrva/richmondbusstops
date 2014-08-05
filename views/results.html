@@ -49,12 +49,16 @@
 	        	<% if(routes_coordinates[i].loc[0] !== myBusStop[0] && routes_coordinates[i].loc[1] !== myBusStop[1]){ %>
 		        		m[<%-i%>] = new google.maps.Marker({
 		        			position: new google.maps.LatLng(<%-routes_coordinates[i].loc[0]%>, <%-routes_coordinates[i].loc[1]%>),
-		        			<% if( i === routes_coordinates.length - 1){%>
-		        				icon: "/school2.png",
-		        			<%}%>
-		        			<% if(i === 0){%>
+		        			<% if( i === routes_coordinates.length - 1 && new Date().getHours() > 14){%>
+		        				icon: "http://maps.google.com/mapfiles/dd-end.png",
+		        			<%}else if(i === routes.routes_coordinates.length -1 && new Date.().getHours() < 14){%>
+								icon: "/school.png",
+							<% } %>	
+		        			<% if(i === 0 && new Date().getHours() > 14 ){%>
 		        				icon: "http://maps.google.com/mapfiles/dd-start.png",
-		        			<%}%>
+		        			<%}else if(i === 0 && new Date().getHours() < 14){ %>
+		        				icon: "/school.png",
+		        				<%} %>
 		        			map: map
 		        		});
 	        		<% } %>	
