@@ -32,7 +32,7 @@
 	            mapOptions);
 
 	        var nearest_bus_stop = new google.maps.Marker({position:mapOptions.center, title: 'Nearest Bus Stop',
-	    	    icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+	    	    icon: '/sign01.png'
 	    	        });
 	        nearest_bus_stop.setMap(map);
 
@@ -54,13 +54,14 @@
 		        				icon: "http://maps.google.com/mapfiles/dd-end.png",
 		        			<%}else if(i === routes_coordinates.length -1 && todayHours.getHours() < 14){%>
 								icon: "/school.png",
-							<% } %>	
-		        			<% if(i === 0 && todayHours.getHours() > 14 ){%>
+							<% } else if(i === 0 && todayHours.getHours() > 14 ){%>
 		        				icon: "/school.png",
 		        			<%}else if(i === 0 && todayHours.getHours() < 14){ %>
 		        				
 		        				icon: "http://maps.google.com/mapfiles/dd-start.png",
-		        				<%} %>
+		        				<%} else { %>
+		        					icon: "/sign02.png",
+		        				<% }%>
 		        			map: map
 		        		});
 	        		<% } %>	
